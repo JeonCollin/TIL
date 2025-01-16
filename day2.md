@@ -29,34 +29,18 @@ origin/master: 서버의 master 브랜치
  나머지 팀원들은 git clone을 통해 원격 저장소를 복제하여 사용해야 함
 
 
+57. git add . // commit 대기기
 
-55. remote add origin https://github.com/JeonCollin/git-test.git
-56. git status
-57. git add .
 58. git commit -m "b-function"
-59. git status
-60. git log --oneline
-61. git push -u origin master
-62. git push -u origin master
-63. git remote add origin https://github.com/JeonCollin/git-test.git
-64. git branch -M master
+62. git push -u origin master // 마스터에 push
+63. git remote add origin https://github.com/JeonCollin/git-test.git // 서버의 origin과 접속
+64. git branch -M master // 마스터 브랜치로 접근
 65. git push -u origin master
 66. git remote -v
 67. touch new-file.txt
-68. git add .
-69. git commit -m "new-file"
 70. git push
-71. git log --oneline
 72. git pull
-73. git log
-74. cd ..
-75. git clone https:github.com/JeonCollin/git-test.git git-clone
-76. git clone https:github.com/JeonCollin/git-test.git git-clone
-77. git clone https://github.com/JeonCollin/git-test.git git-clone
-78. cd git-clone
-79. git log --oneline
-80. ls
-81. history
+77. git clone https://github.com/JeonCollin/git-test.git git-clone // 위 사이트에서 git-clone 폴더로 다운로드
 
 ---
 ## gitignore
@@ -104,26 +88,84 @@ git commit -m "c.txt deleted": c.txt가 삭제되는 커밋이 만들어짐. 그
 ```
 
 ## git checkout
-- git checkout <커밋해시번호>: 해당 커밋으로 돌아감
+- git checkout 커밋해시번호: 해당 커밋으로 돌아감
     - HEAD 포인터가 해당 커밋으로 이동
+
     - master 브랜치 포인터는 그대로
     - 해당 커밋 당시의 폴더 내용이 보임
     - git checkout master: 마스터의 최근 커밋으로 다시 이동
     - 커밋의 해시번호를 확인하려면 git log --oneline
 
-
+---
 97. touch a.txt
+
 98. git status
-99. touch .gitignore.
-100. git status.
+99. touch .gitignore
 101. git status.
 102. touch b.txt.
 103. git add ..
-104. echo "b.txt" >> .gitignore.
-105. cat .gitignore.
-106. cat .gitignore.
-107. git rm --cached b.txt.
+104. echo "b.txt" >> .gitignore
+106. cat .gitignore
+107. git rm --cached b.txt
 108. git status
+110.  git log --oneline
+111.  git status
+112.  git reset --soft f7b3
+113.  ls -l
+114.  git status
+115.  git log --oneline
+116.  cd ..
+117.  cd mixed
+118.  ls -l
+119.  git status
+120.  git log --oneline
+121.  it reset --mixed f7b3
+122.  git reset --mixed f7b3
+123.  git status
+124.  cd ..
+125.  cd hard
+126.  ls -l
+127.  git status
+128.  git log --oneline
+129.  git reset --hard f7b3
+130.  ls -l
+131.  git reflog
+132.  git reset --hard d7c8
+133.  git log --oneline
+144.  git push -u origin master
+
+145.  cd ~
+146.  pwd
+147.  cd desktop
+148.  mkdir git-undoing-practice
+149.  cd git-undoing-practice
+150.  git init
+151.  code .
+152.  git add .
+153.  git commit -m "first commit"
+154.  git restore README.md
+155.  touch a.txt
+156.  echo "hello" >> README.md
+157.  git add .
+158.  git commit -m "second commit"
+159.  echo "aa" >> a.txt
+160.  echo "aa" >> README.md
+161.  git restore.
+162.  code .
+163.  git restore .
+164.  git status
+165.  touch b.txt
+166.  git add .
+167.  git status
+168.  git rm --cached b.txt
+169.  git status
+170.  git retore --staged README.txt
+171.  git restore --staged b.txt
+
+186.  cd ~
+187.  cd desktop
+188.  git clone https://github.com/yisj/til-practice.git til-clone
+
 
 a384750 (HEAD -> master, origin/master, origin/HEAD) d.txt deleted & untracked
 
@@ -151,7 +193,7 @@ a384750 (HEAD -> master, origin/master, origin/HEAD) d.txt deleted & untracked
 
 - 무효화 되었지만 이전 커밋은 그대로 남아있다.
 
-- git checkout <커밋해시번호> : 이전 커밋으로 돌아가기
+- git checkout 커밋해시번호: 이전 커밋으로 돌아가기
 
 - ls -l: 파일 목록 확인
 
@@ -162,17 +204,17 @@ a384750 (HEAD -> master, origin/master, origin/HEAD) d.txt deleted & untracked
 
 - 근데도 기록은 남음
 
-- git reset --hard 해시: 
+- git reset --hard 해시: 내용물도 사라짐
     - 작업 영역에서도 삭제
     - stage 영역에 없음
     - 커밋 기록 삭제
 
-- git reset --mixed 해시
+- git reset --mixed 해시: add에서는 삭제됐지만 내용물은 남음음
     - 작업 영역 그대로(삭제x)
     - stage 영역에 없다(추적X)
     - 커밋 기록이 삭제됨
 
-- git reset --soft 해시
+- git reset --soft 해시: add 까지 남아있다.
     - 작업 영역 그대로: ls -1
     - 삭제된 것은 stage 영역에 남아있음: git status
     - 커밋 기록은 삭제됨(데이터베이스에는 남음): git log --oneline
@@ -194,3 +236,16 @@ a384750 (HEAD -> master, origin/master, origin/HEAD) d.txt deleted & untracked
     - git rm은 다음 커밋에서 삭제
     - git reset --hard는 커밋해버림
     - **git add를 취소하고 싶다면 git restore --staged 파일명 을 사용해라**
+
+# til-practice
+
+## 누군가의 git에서 나만의 새로운 branch를 만들어서 작업하는 flow
+1. `git clone https://github.com/yisj/til-practice.git`
+2. `cd til-practice`
+3. `git branch sj` : 브랜치 만들기
+4. `git checkout sj` : 브랜치 master에서 sj로 전환
+5. `touch 이승재.md`
+6. 자유 주제(오늘 배운 내용, 공유하고 싶은 내용)으로 마크다운 문서 완성하기
+7. `git add 이승재.md`
+8. `git commit -m "submit"` : 로컬 sj 브랜치에만 있는 커밋
+9. `git push -u origin sj` : 원격 저장소에 origin/sj 브랜치를 만들고, 로컬 sj 브랜치를 원격 sj 브랜치에 푸시
