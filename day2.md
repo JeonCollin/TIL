@@ -162,17 +162,35 @@ a384750 (HEAD -> master, origin/master, origin/HEAD) d.txt deleted & untracked
 
 - 근데도 기록은 남음
 
-- git reset --hard<해시>: 
+- git reset --hard 해시: 
     - 작업 영역에서도 삭제
     - stage 영역에 없음
     - 커밋 기록 삭제
 
-- git reset --mixed<해시>
+- git reset --mixed 해시
     - 작업 영역 그대로(삭제x)
     - stage 영역에 없다(추적X)
     - 커밋 기록이 삭제됨
 
-- git reset --soft<해시번호>
+- git reset --soft 해시
     - 작업 영역 그대로: ls -1
     - 삭제된 것은 stage 영역에 남아있음: git status
     - 커밋 기록은 삭제됨(데이터베이스에는 남음): git log --oneline
+
+## git restore 파일명
+- 이미 커밋된 파일이 있는 경우
+- 해당 파일을 수정했는데, 수정한게 마음에 안들어서 커밋된 파일로 복원하고 싶은 경우
+- 커밋에 들어있는 파일을 복사해서, 작업 영역에 있는 파일에 덮어쓰기
+
+### unstage 하고 싶을 때
+- git add를 했는데 취소하고 싶을 때!
+- git rm --cached: commit이 없을 때
+    - stage 영역에서 제외하면서, commit된 게 있으면 삭제하는 커밋을 만들게됨
+- git restore --staged: commit이 있을 때도 가능
+    - stage 영역에서만 삭제, 작업 영역은 그대로
+    - git restore: 커밋에서 복사해서 작업 영역 내용 덮어쓰기(복원)
+
+* 요약: git rm은 git reset --hard와 비슷하다
+    - git rm은 다음 커밋에서 삭제
+    - git reset --hard는 커밋해버림
+    - **git add를 취소하고 싶다면 git restore --staged 파일명 을 사용해라**
