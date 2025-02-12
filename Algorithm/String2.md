@@ -45,4 +45,51 @@ int brute_matching(char in, char comp, int inlen, int complen)
 
 예를 들어 e에서 실팼으면 3이니까 j = 3인 d를 현재 자리로 가져온다
 '''
+
+def kmp(t, p):
+    N = len(t) #기준문자열
+    M = len(p) #찾아야하는 문자열: a b c d a b c e f
+    lps = [0] * (M+1)
+
+    j = 0 # 일치한 개수 == 비교할 패턴 위치
+    
+    #첫 번째 칸은 -1 고정
+    lps[0] = -1
+
+    #
+    for i in range(1, M):
+        lps[i] = j #p[i] 이전에 일치한 개수
+
+        #접두사/접미사가 같은 부분 만큼 증가시킨다
+        if p[i] == p[j]:
+            j += 1
+
+        else:
+            j = 0
+
+    #마지막 칸은 j 고정
+    lps[M] = j
+
+    i = 0 #비교할 텍스트 위치
+    j = 0 #비교할 패턴 위치
+
+    while i < N and j <= M:
+        if i == -1 or t[i] == p[j]:
+            i += 1
+            j += 1
+
+        else:
+            i = lps[j]
+
+        if j == M:
+            index = i-M
+            j = lps[j]
 ```
+
+### 보이어 무어 알고리즘
+- 패턴의 끝 부분이 일치하는지 확인한다
+- 일치하지 않으면 점프
+- 점프를 위해 skip 배열 사용
+- skip배열: (찾아야 하는 패턴 기준) length - index - 1
+- 패턴에 없는 모든 문자: length
+- 시간복잡도: 보통 O(n)보다 작다
