@@ -57,6 +57,28 @@ def f(i,N,s,t):
 # 근데 보통은 100번대로 돌게됨
 ```
 
+```py
+def subset(idx):
+    # 재귀호출을 이용한 부분집합
+
+    # N개 선택 여부를 결정완료
+    if(idx == N):
+        # 여기서 부분집합이 완성됨
+        print(used)
+        # [0,0,0,0,0] [0,0,0,0,1] [0,0,0,1,0] ...
+
+    else:
+        # 현재 원소를 선택하는 경우
+        used[idx] = 1
+        subset(idx+1)
+        # 현재 원소를 선택하지 않는 경우
+        used[idx] = 0
+        subset(idx+1)
+
+myset = [1, 2, 3, 4, 5]
+N = len(myset)
+used = [0]*N
+```
 
 ## 순열
 - 백트래킹을 이용하여 {1,2,3...,NMAX} 순열 구하기
@@ -79,4 +101,36 @@ def permutation(i, N):
             P[i], P[j] = P[j], P[i]
 
 P = [1,2,3]
+```
+
+```py
+def permutation(idx):
+    # 재귀구조를 이용한 nPr = 5P3
+
+    # R개를 모두 선택했다면 순열 출력
+    if(idx == R):
+        # 여기서 순열이 완성된다
+        print(P)
+        # [1,2,3] [1,2,4] [1,2,5] ...
+
+    else:
+        # myset을 순회하며 순열로 포함할 원소를 선택
+        for i in range(N):
+            # 사용하지 않은 원소라면 선택한다
+            if(used[i] == 0):
+                # 사용 기록
+                used[i] = 1
+                # 순열에 넣기
+                P[idx] = myset[i]
+                # 그 뒤에서 선택하도록 순열 호출
+                permutation(idx+1)
+                # 사용기록 초기화: 새로운 순열 생성
+                used[i] = 0
+                
+myset = [1, 2, 3, 4, 5]
+N = len(myset)
+used = [0]*N
+R = 3
+P = [0]*R
+permutation(0)
 ```

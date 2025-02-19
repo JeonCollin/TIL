@@ -84,6 +84,7 @@ def DFS(v):
                 break
 ```
 
+- 반복문을 이용한 DFS
 ```py
 '''
 입력
@@ -134,6 +135,29 @@ for i in range(E):
     # 인접하는 정보를 리스트로 만들기
     adj_list[v].append(w)
     adj_list[w].append(v)
+```
+
+- 재귀를 이용한 DFS
+```py
+def DFS(start):
+    global end
+    global result
+
+    # 현재 노드 방문기록 먼저
+    visited[start] = 1
+
+    # 인접한 노드 중에 갈 수 있는 곳을 확인하자
+    for node in range(len(adj_arr)):
+        # 인접했고, 방문한 적 없는 곳이라면 간다
+        if(adj_arr[start][node] == 1 and
+           visited[node] == 0):
+
+            # 목표지점이면 True 기록
+            # return: 재귀 구조여서 못끝낸다
+            if(node == end):
+                result = True
+            # 방문한다
+            DFS(node)
 ```
 
 # 그래프 경로
