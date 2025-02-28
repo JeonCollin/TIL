@@ -1,5 +1,6 @@
 # CDN
 - 거리 제약 없이 컨텐츠를 전송할 수 있다
+- 온라인으로 실행 시 다운로드 하게 해준다
 
 ## Bootstrap 사용법
 - `<() class = "{property}{sides}-{size}"> ...`
