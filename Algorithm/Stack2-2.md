@@ -134,3 +134,21 @@ R = 3
 P = [0]*R
 permutation(0)
 ```
+
+## 중복순열
+- 순열이랑 비슷한데, 방문처리만 안하면 된다
+```py
+def PI(idx):
+
+    # 중복순열이 완성된다
+    if(idx == R):
+        print(PI)
+        # [1,1,1] [1,1,2] [1,1,3] ...
+
+    else:
+        for i in range(N):
+            PI[idx] = myset[i]
+            PI(idx+1)
+
+PI(0)
+```
