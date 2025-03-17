@@ -68,7 +68,7 @@ while(j < len(R)):
 ########## 예시 문제 ##########
 # 주어진 배열 arr에서 left ~ right 구간만 정렬된 배열로 만든다
 # L: left ~ mid-1 // R: mid ~ right
-# L R을 합치면ㄴ서 arr에 덮어쓴다.
+# L R을 합치면서 arr에 덮어쓴다.
 def merge(left, mid, right):
     global arr
     
@@ -112,8 +112,8 @@ def merge_sort(left, right):
         merge_sort(left, mid-1)
         merge_sort(mid, right)
         
-    # 2단계: 쪼개진 배열을 합친다
-    merge()
+        # 2단계: 쪼개진 배열을 합친다
+        merge(left, mid, right)
 
 
 T = int(input())
