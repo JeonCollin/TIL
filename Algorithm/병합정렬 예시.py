@@ -66,62 +66,69 @@ while(j < len(R)):
 # 정렬 끝
 
 ########## 예시 문제 ##########
-# 주어진 배열 arr에서 left ~ right 구간만 정렬된 배열로 만든다
-# L: left ~ mid-1 // R: mid ~ right
-# L R을 합치면서 arr에 덮어쓴다.
 def merge(left, mid, right):
-    global arr
-    
-    # 내가 사용할 부분 복사 떠오기
-    L = arr[left:mid]
-    R = arr[mid:right]
-    
+    global mylist
+    # 사용할 부분 복사
+    L = mylist[left : mid+1]
+    R = mylist[mid+1 : right+1]
+
+    # 인덱스 초기화
     i = 0
     j = 0
     k = left
-    
-    # i, j가 배열의 범위에 있다면
-    while(i < mid - left and j < right - mid):
+
+    # 배열의 범위 내에서
+    while(i < mid+1 - left and j < right - mid):
+        # 왼쪽이 더 작다면 왼쪽 원소를 넣는다
         if(L[i] <= R[j]):
-            arr[k] = L[i]
-            k += 1
+            mylist[k] = L[i]
             i += 1
-            
-        else:
-            arr[k] = R[j]
             k += 1
+
+        # 오른쪽이 더 작다면 오른쪽 원소를 넣는다
+        else:
+            mylist[k] = R[j]
             j += 1
-    
-    # L, R 중 남은 배열 소진
-    while(i < mid - left):
-        arr[k] = L[i]
-        k += 1
+            k += 1
+
+    # 반복문이 끝나면 아직 남은 리스트가 존재함
+    # 왼쪽이 남은 경우
+    while(i < mid+1 - left):
+        mylist[k] = L[i]
         i += 1
-    
-    # j가 남아있다면
-    while(j < right - mid):
-        arr[k] = R[j]
         k += 1
+
+    # 오른쪽이 남은 경우
+    while(j < right - mid):
+        mylist[k] = R[j]
         j += 1
+        k += 1
+
+
 
 def merge_sort(left, right):
-    # 1단계: 길이가 1일 때 까지 쪼갠다
-    print(left, right)
+    # 길이가 1이 될 때 까지 쪼갠다
     if(left < right):
-        mid = (left + right)//2
-        merge_sort(left, mid-1)
-        merge_sort(mid, right)
-        
-        # 2단계: 쪼개진 배열을 합친다
+        mid = (left + right) // 2
+        merge_sort(left, mid)
+        merge_sort(mid + 1, right)
+        # 쪼갠 놈들을 합친다
         merge(left, mid, right)
+
 
 
 T = int(input())
 
 for t in range(1, T+1):
+
+    # N: 정수의 개수
     N = int(input())
-    arr = list(map(int, input().split()))
-    
-    # 보통은 폐구간이 낫다
-    cnt = 0
+
+    # 정수 받기
+    mylist = list(map(int, input().split()))
+
     merge_sort(0, N-1)
+
+    print(mylist)
+
+    print(f'#{t} {mylist[N//2]} ')
