@@ -147,3 +147,52 @@ def index(request):
   <ol>{{work}}</ol>
 {% endblock content %}
 ```
+
+4. url에서 변수를 같이 받는 경우
+- <변수> 꺾쇠로 변수를 받는다
+```py
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('introduce/<username>', views.introduce),
+    
+]
+```
+## url 권한 분배
+1. 루트 urls.py에서 경로 설정
+```py
+from django.urls import path, include
+
+urlpatterns = [
+    path('articles/', include('articles.urls'))
+]
+```
+
+2. 하위 url(articles에 있는 urls.py)에서 특정 기능 수행
+```py
+from django.urls import path
+# 현재 디렉토리에서 view.py 호출
+from . import views
+
+app_name = 'articles'
+
+# 경로가 articles/index/로 호출되면 views.py에서 index() 호출 
+urlpatterns = [
+    path('index/', views.index, name='index')
+    
+]
+```
+
+3. 그 뒤로는 html 부르고 똑같다
+```py
+from django.shortcuts import render
+
+# Create your views here.
+
+def index(request):
+    return render(request, 'index.html')
+```
+
+4. base에서 사용할 때 url이름:경로이름으로 사용
+```html
+<a href="articles:index"></a>
+```
