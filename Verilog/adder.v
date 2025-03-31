@@ -1,3 +1,4 @@
+/*----------------gate level modeling-------------------*/
 module half_adder (x, y, s, c);
 input x, y;
 output s, c;
@@ -39,7 +40,7 @@ xor xor2(s, s1, cin);
 or or1(cout, c1, c2, c3);
 endmodule
 
-// full adder를 이용한 4비트 에더
+// full adder를 이용한 4비트 가산기
 module four_bit_adder (x, y, cin, sum, cout);
 input[3:0] x, y;
 input cin;
@@ -54,5 +55,17 @@ full_adder fa1(.x(x[0]), .y(y[0]), .cin(cin), .s(s[0]), .cout(c1));
 full_adder fa1(.x(x[1]), .y(y[1]), .cin(c1),  .s(s[1]), .cout(c2));
 full_adder fa1(.x(x[2]), .y(y[2]), .cin(c2),  .s(s[2]), .cout(c3));
 full_adder fa1(.x(x[3]), .y(y[3]), .cin(c3),  .s(s[3]), .cout(cout));
+    
+endmodule
+
+/*----------------data flow modeling-------------------*/
+module adder_4bit_dataflow (a, b, cin, sum, cout);
+input[3:0] a, b;
+input cin;
+
+output[3:0] sum;
+output cout;
+
+assign {cout, sum} = a+b+cin;
     
 endmodule
